@@ -69,6 +69,7 @@ public class TimeNeededToInformAllEmployees {
 
             }
 
+
             if(res==-1 && isMan==true){
                 return 0;
             }
