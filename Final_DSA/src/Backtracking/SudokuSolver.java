@@ -27,22 +27,15 @@ public class SudokuSolver {
                                 board[i][j]='.'; //backtrack
                             }
 
-
-
                         }
 
-
                     }
-
                     return false;
-
                 }
 
             }
         }
-
         return true;
-
     }
 
     private boolean isValid(char[][] board, int row, int col, char c) {
