@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class EventualSafeNodes {
+public class  EventualSafeNodes {
 
     HashMap<Integer, Boolean> map=new HashMap<>();
 

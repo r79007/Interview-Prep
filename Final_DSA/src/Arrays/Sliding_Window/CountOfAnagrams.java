@@ -7,113 +7,71 @@ public class CountOfAnagrams {
 
     public static void main(String[] args) {
 
-        String input = "fxoraxofxo";
+        String input = "eaylnlfdxf";
 
-        String pattern = "fox";
+        String pattern = "irc";
 
 
-        System.out.println(countOccOfAnagrams(input, pattern));
+        System.out.println(search(pattern, input));
 
     }
 
 
-    private static int countOccOfAnagrams(String input, String pattern) {
+    static int search(String pat, String s) {
+        HashMap<Character, Integer> map=new HashMap<>();
 
-        if (pattern == null || "".equals(pattern) || input == null || "".equals(input)) {
-
-            return -1;
-
+        for(int i=0;i<pat.length();i++){
+            map.putIfAbsent(s.charAt(i), 0);
+            map.put(s.charAt(i), map.get(s.charAt(i))+1);
         }
 
-        int windowSize = pattern.length();
-
-        int i = 0, j = 0, count = 0, result = 0;
 
 
-        Map<Character, Integer> countMap = new HashMap<>();
+        int count=map.size();
 
+        int j=0;
+        int i=0;
 
-        //populate map
+        int num=0;
 
-        for (int k = 0; k < pattern.length(); k++) {
+        while(j<s.length()){
 
-            Integer charCount = countMap.get(pattern.charAt(k));
+            if(map.containsKey(s.charAt(j))){
+                if(map.get(s.charAt(j))>0){
+                    map.put(s.charAt(j), map.get(s.charAt(j))-1);
+                    if(map.get(s.charAt(j))==0){
+                        count--;
+                    }
 
-            if (charCount == null) {
-
-                countMap.put(pattern.charAt(k), 1);
-
-            } else {
-
-                countMap.put(pattern.charAt(k), charCount++);
+                    if(count==0){
+                        num++;
+                    }
+                }
 
             }
 
-        }
-
-        // count of distinct characters
-
-        count = countMap.keySet().size();
-
-
-        while (j < input.length()) {
-
-            char endChar = input.charAt(j);
-
-
-            // calculation for character at end of window
-
-            if (countMap.containsKey(endChar)) {
-
-                countMap.put(endChar, countMap.get(endChar) - 1);
-
-            }
-
-            if (countMap.get(endChar) != null && countMap.get(endChar) == 0) {
-
-                count--;
-
-            }
-
-
-            if (j - i + 1 < windowSize) {
-
-                j++;
-
-            } else {
-
-                if (count == 0) {
-
-                    result++;
-
+            if(j-i+1==pat.length()){
+                if(map.containsKey(s.charAt(i))){
+                    map.put(s.charAt(i), map.get(s.charAt(i))+1);
+                    if(map.get(s.charAt(i))==1){
+                        count++;
+                    }
                 }
-
-                char startChar = input.charAt(i);
-
-                // calculation for character at moving out of window
-
-                if (countMap.containsKey(startChar)) {
-
-                    countMap.put(startChar, countMap.get(startChar) + 1);
-
-                }
-
-                if (countMap.get(startChar) != null && countMap.get(startChar) == 1) {
-
-                    count++;
-
-                }
-
                 i++;
-
                 j++;
-
             }
+
+            if(j-i+1<pat.length()){
+                j++;
+            }
+
 
 
         }
 
-        return result;
+        return num;
+
+
 
     }
 
